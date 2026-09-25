@@ -61,4 +61,4 @@ The final report includes prepared sections for Axe DevTools and Chrome Lighthou
 
 ## GitHub Repository
 
-GitHub link: Insert GitHub repository link here after pushing the project.
+GitHub link: https://github.com/trickyson/activity-2-1-accessible-component-library
