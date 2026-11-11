@@ -4,7 +4,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 
 await mkdir('audit-results', { recursive: true });
 const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+const page = await context.newPage();
 const observations = [];
 try {
   await page.goto('http://127.0.0.1:4173/', { waitUntil: 'networkidle' });
