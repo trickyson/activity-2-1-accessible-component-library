@@ -46,9 +46,9 @@ try {
   observations.push('PASS: Shift+Tab navigates backward between navigation links');
   await page.getByRole('button', { name: 'Save Component' }).focus();
   await page.keyboard.press('Enter');
-  if (!(await page.getByRole('button', { name: 'Save Component' }).count())) throw new Error('Enter did not activate button');
+  if (!(await page.getByRole('button', { name: 'Reset saved state' }).count())) throw new Error('Enter did not activate button');
   await page.keyboard.press('Space');
-  if (!(await page.getByRole('button', { name: 'Reset saved state' }).count())) throw new Error('Space did not activate button');
+  if (!(await page.getByRole('button', { name: 'Save Component' }).count())) throw new Error('Space did not activate button');
   observations.push('PASS: Button responds to Enter and Space');
   const axe = await new AxeBuilder({ page }).analyze();
   await writeFile('audit-results/axe-results.json', JSON.stringify(axe, null, 2));
