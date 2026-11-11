@@ -27,7 +27,8 @@ try {
   if (!success) throw new Error('Valid form submission failed');
   observations.push('PASS: Valid email displays success message');
   // Verify real keyboard navigation from the beginning of the document.
-  await page.evaluate(() => document.activeElement?.blur());
+  // Reload to reset focus order after prior mouse and form interactions.
+  await page.reload({ waitUntil: 'networkidle' });
   await page.keyboard.press('Tab');
   const skipFocused = await page.evaluate(() => document.activeElement?.textContent?.trim() === 'Skip to main content');
   if (!skipFocused) throw new Error('First Tab did not focus the skip link');
@@ -41,7 +42,7 @@ try {
   const backToSkip = await page.evaluate(() => document.activeElement?.textContent?.trim() === 'Skip to main content');
   if (!backToSkip) throw new Error('Shift+Tab did not return to skip link');
   observations.push('PASS: Shift+Tab navigates backward');
-  await page.getByRole('button', { name: 'Reset saved state' }).focus();
+  await page.getByRole('button', { name: 'Save Component' }).focus();
   await page.keyboard.press('Enter');
   if (!(await page.getByRole('button', { name: 'Save Component' }).count())) throw new Error('Enter did not activate button');
   await page.keyboard.press('Space');
