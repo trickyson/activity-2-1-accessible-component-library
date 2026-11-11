@@ -19,7 +19,7 @@ jobs:
       - name: Install browser audit tools
         run: |
           npm install --no-save playwright @axe-core/playwright lighthouse
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
       - name: Start preview server
         run: |
           npm run preview -- --port 4173 > /tmp/vite.log 2>&1 &
