@@ -29,6 +29,7 @@ jobs:
       - name: Browser interaction and axe audit
         run: node scripts/browser-accessibility-audit.mjs
       - name: Lighthouse accessibility report
+        if: success() || failure()
         run: |
           mkdir -p audit-results
           npx lighthouse http://127.0.0.1:4173/ --only-categories=accessibility --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output=html --output-path=./audit-results/lighthouse
