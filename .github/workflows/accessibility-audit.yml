@@ -1,0 +1,41 @@
+name: Accessibility audit
+on:
+  push:
+    branches: [main, improve/activity-2-1-accessibility]
+  pull_request:
+  workflow_dispatch:
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install project dependencies
+        run: npm install
+      - name: Production build
+        run: npm run build
+      - name: Install browser audit tools
+        run: |
+          npm install --no-save playwright @axe-core/playwright lighthouse
+          npx playwright install --with-deps chromium
+      - name: Start preview server
+        run: |
+          npm run preview -- --port 4173 > /tmp/vite.log 2>&1 &
+          for i in $(seq 1 40); do curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 2; done
+          cat /tmp/vite.log
+          exit 1
+      - name: Browser interaction and axe audit
+        run: node scripts/browser-accessibility-audit.mjs
+      - name: Lighthouse accessibility report
+        run: |
+          mkdir -p audit-results
+          npx lighthouse http://127.0.0.1:4173/ --only-categories=accessibility --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --output=json --output=html --output-path=./audit-results/lighthouse
+      - name: Upload audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: activity-2-1-audit-evidence
+          path: audit-results/
+          if-no-files-found: warn
