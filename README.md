@@ -1,144 +1,126 @@
-# Activity 2.1 Accessible Component Library
+# Activity 2.1 — Accessible Component Library
 
-**Student Name:** Patrick Jason L. Torres  
-**Activity:** Create and Submit an Accessible Component Library  
-**Framework Used:** React 19 with Vite  
+**Student:** Patrick Jason L. Torres  
+**Framework:** React 19 + Vite  
+**Repository:** https://github.com/trickyson/activity-2-1-accessible-component-library  
+**Development branch:** `improve/activity-2-1-accessibility`  
+**Verified GitHub Actions run:** [Accessibility audit #16](https://github.com/trickyson/activity-2-1-accessible-component-library/actions/runs/43042036646)  
+**Audit date:** November 11, 2026
 
-## Project Overview
+## Project overview
 
-This project is a small accessible component library built with React 19. It demonstrates three reusable UI components required for Activity 2.1: Button, Input Form, and Navigation Menu. The components follow basic accessibility practices such as visible labels, semantic HTML, keyboard focus support, and ARIA attributes where appropriate.
+This activity demonstrates three reusable React components designed with semantic HTML, keyboard access, visible focus indicators, accessible feedback, and responsive layouts. The page presents a button, an email input form, and a navigation menu. This is a demonstration application; it does not persist button state or transmit submitted email addresses.
 
-## Components Created
+## Components and accessibility features
 
-| Component | File | Accessibility Feature |
-|---|---|---|
-| Accessible Button | `src/components/AccessibleButton.jsx` | Uses a visible button label and `aria-label` |
-| Accessible Input Form | `src/components/AccessibleInput.jsx` | Uses `label`, `htmlFor`, `id`, `required`, and `aria-describedby` |
-| Accessible Navigation Menu | `src/components/AccessibleNav.jsx` | Uses semantic `nav`, `aria-label`, keyboard-friendly links, and skip link |
+| Component | Source file | Implementation |
+| --- | --- | --- |
+| Accessible Button | `src/components/AccessibleButton.jsx` | Native `<button>`, Enter/Space activation, toggled label, `role="status"` and `aria-live="polite"` feedback |
+| Accessible Input Form | `src/components/AccessibleInput.jsx` | Explicit `<label>`, `useId()`-based association, required email validation, `aria-invalid`, `aria-describedby`, `role="alert"` errors and success status |
+| Accessible Navigation Menu | `src/components/AccessibleNav.jsx` | Semantic `<nav aria-label="Main navigation">`, keyboard-operable links and a skip-to-main-content link |
 
-## Accessibility Issues Fixed
+Additional page structure includes a `<main id="main-content" tabIndex="-1">` destination for the skip link, meaningful headings, and visible focus styles.
 
-| Issue | Fix Applied |
-|---|---|
-| Button action may be unclear to screen readers | Added `aria-label` and visible text |
-| Input may be hard to identify | Added a visible label connected to the input with `htmlFor` and `id` |
-| Helper text may not be announced | Added `aria-describedby` to connect the input with its helper text |
-| Keyboard users may not see where focus is located | Added visible `:focus-visible` outline styles |
-| Users may need to skip navigation | Added a skip link that goes directly to the main content |
-| Navigation landmark may be unclear | Added semantic `<nav>` with `aria-label="Main navigation"` |
+## Setup and local execution
 
-## Accessibility Testing
-
-The project includes a static accessibility check:
-
-```bash
-npm run audit:static
-# Activity 2.1 Accessible Component Library
-
-**Student Name:** Patrick Jason L. Torres  
-**Activity:** Create and Submit an Accessible Component Library  
-**Framework Used:** React 19 with Vite  
-
-## Project Overview
-
-This project is a small accessible component library built with React 19. It demonstrates three reusable UI components required for Activity 2.1: Button, Input Form, and Navigation Menu. The components follow basic accessibility practices such as visible labels, semantic HTML, keyboard focus support, and ARIA attributes where appropriate.
-
-## Components Created
-
-| Component | File | Accessibility Feature |
-|---|---|---|
-| Accessible Button | `src/components/AccessibleButton.jsx` | Uses a visible button label and `aria-label` |
-| Accessible Input Form | `src/components/AccessibleInput.jsx` | Uses `label`, `htmlFor`, `id`, `required`, and `aria-describedby` |
-| Accessible Navigation Menu | `src/components/AccessibleNav.jsx` | Uses semantic `nav`, `aria-label`, keyboard-friendly links, and skip link |
-
-## Accessibility Issues Fixed
-
-| Issue | Fix Applied |
-|---|---|
-| Button action may be unclear to screen readers | Added `aria-label` and visible text |
-| Input may be hard to identify | Added a visible label connected to the input with `htmlFor` and `id` |
-| Helper text may not be announced | Added `aria-describedby` to connect the input with its helper text |
-| Keyboard users may not see where focus is located | Added visible `:focus-visible` outline styles |
-| Users may need to skip navigation | Added a skip link that goes directly to the main content |
-| Navigation landmark may be unclear | Added semantic `<nav>` with `aria-label="Main navigation"` |
-
-## Accessibility Testing
-
-The project includes a static accessibility check:
-
-```bash
-npm run audit:static
-```
-
-Official browser testing should be completed with:
-
-- Axe DevTools
-- Chrome Lighthouse Accessibility Audit
-
-## Screenshot List
-
-Include the following screenshots in the final PDF report:
-
-1. Running application home screen
-2. Accessible Button component
-3. Accessible Input Form component
-4. Accessible Navigation Menu component
-5. Axe DevTools result
-6. Lighthouse Accessibility result
-7. GitHub repository page
-
-## GitHub Repository
-
-GitHub link: `https://github.com/trickyson/activity-2-1-accessible-component-library`
-
-## Run the Project
+**Prerequisites:** Node.js and npm.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local development URL shown in the terminal.
-
-## Build the Project
+Open the local address displayed by Vite. To verify a production build:
 
 ```bash
 npm run build
-```
-```
-
-Official browser testing should be completed with:
-
-- Axe DevTools
-- Chrome Lighthouse Accessibility Audit
-
-## Screenshot List
-
-Include the following screenshots in the final PDF report:
-
-1. Running application home screen
-2. Accessible Button component
-3. Accessible Input Form component
-4. Accessible Navigation Menu component
-5. Axe DevTools result
-6. Lighthouse Accessibility result
-7. GitHub repository page
-
-## GitHub Repository
-
-GitHub link: https://github.com/trickyson/activity-2-1-accessible-component-library
-
-## Run the Project
-
-```bash
-npm install
-npm run dev
+npm run preview
 ```
 
-Open the local development URL shown in the terminal.
+## Accessibility issues addressed
 
-## Build the Project
+The implementation includes the following preventive fixes and accessibility improvements:
 
-```bash
-npm run build
+1. **Action feedback:** Uses a live status message rather than a blocking JavaScript alert.
+2. **Form identification:** Associates the email input with a visible label and a stable generated ID.
+3. **Form validation:** Exposes invalid state and links error descriptions to the input; announces errors and success feedback.
+4. **Keyboard access:** Uses native buttons and links, with a skip link to bypass repetitive navigation.
+5. **Focus visibility and layout:** Provides visible keyboard focus and responsive component presentation.
+
+These describe implemented changes, not a claim that a complete manual WCAG conformance review was performed.
+
+## Verified testing results
+
+The GitHub Actions workflow in `.github/workflows/accessibility-audit.yml` builds the React application, launches Chromium through Playwright, exercises the components, runs `@axe-core/playwright`, and generates a Lighthouse accessibility report.
+
+**Evidence source:** [Successful GitHub Actions Run #16](https://github.com/trickyson/activity-2-1-accessible-component-library/actions/runs/43042036646), commit `9e6e2394e10569f01ada6757c816db74a18e73b9`.
+
+| Check | Verified result | Evidence |
+| --- | --- | --- |
+| Production build | Passed | GitHub Actions build step |
+| Button click and status announcement | Passed | `interaction-results.txt`, `02-button.png` |
+| Invalid and valid email submissions | Passed | `interaction-results.txt`, `03-form-error.png` |
+| First Tab, skip link and Enter | Passed | `interaction-results.txt`, `04-keyboard-skip-link.png` |
+| Shift+Tab navigation and Enter/Space button activation | Passed | `interaction-results.txt` |
+| axe-core automated accessibility scan | **0 detected violation categories** (40 passed checks; 0 incomplete) | `axe-results.json` |
+| Lighthouse Accessibility | **100/100** | `lighthouse.report.html`, `lighthouse.report.json` |
+
+The axe and Lighthouse results reflect the audited page and browser state at the time of this run. Automated checks alone do not establish complete WCAG compliance; manual assistive-technology and peer review remain useful additional steps. A separate manual axe DevTools extension screenshot or peer-review result is **not claimed** here.
+
+## Genuine screenshots and audit evidence
+
+The workflow uploads the **`activity-2-1-audit-evidence`** artifact, available under the successful run's **Artifacts** section. Download and extract it to access:
+
+| File | Description |
+| --- | --- |
+| `01-application.png` | Full-page React application overview |
+| `02-button.png` | Accessible Button after interaction |
+| `03-form-error.png` | Input Form displaying validation feedback |
+| `04-keyboard-skip-link.png` | Visible keyboard focus on the skip link |
+| `interaction-results.txt` | Recorded automated interaction and keyboard test outcomes |
+| `axe-results.json` | Raw axe-core audit findings |
+| `lighthouse.report.html` | Human-readable Lighthouse audit report |
+| `lighthouse.report.json` | Machine-readable Lighthouse audit results |
+
+Screenshots and audit files were captured by the automated browser workflow; they are not generated or simulated test results.
+
+## Project structure
+
+```text
+src/
+  App.jsx
+  components/
+    AccessibleButton.jsx
+    AccessibleInput.jsx
+    AccessibleNav.jsx
+  styles/
+    global.css
+scripts/
+  browser-accessibility-audit.mjs
+  static-accessibility-check.mjs
+.github/
+  workflows/
+    accessibility-audit.yml
+README.md
+package.json
 ```
+
+## Submission checklist
+
+- [x] Three accessible React components
+- [x] Source code pushed to GitHub development branch
+- [x] Successful production build and automated browser checks
+- [x] Genuine axe-core and Lighthouse audit reports
+- [x] Actual browser screenshots and audit artifact
+- [x] Final README with testing results and evidence references
+- [ ] Merge the verified development branch into `main`
+- [ ] Prepare the final NEUST-format PDF report and submission ZIP
+- [ ] Complete peer testing if specifically required by the instructor
+
+## References
+
+- [W3C Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+- [WAI: Keyboard Accessibility](https://www.w3.org/WAI/WCAG21/Understanding/keyboard.html)
+- [axe-core](https://github.com/dequelabs/axe-core)
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)
+- [React documentation](https://react.dev/)

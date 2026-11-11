@@ -1,18 +1,16 @@
-function AccessibleButton({ label = 'Save' }) {
-  function handleClick() {
-    window.alert('Accessible button clicked successfully.');
-  }
+import { useState } from 'react';
 
+function AccessibleButton({ label = 'Save Component' }) {
+  const [saved, setSaved] = useState(false);
   return (
-    <button
-      type="button"
-      className="primary-button"
-      aria-label={label}
-      onClick={handleClick}
-    >
-      {label}
-    </button>
+    <div className="button-demo">
+      <button type="button" className="primary-button" onClick={() => setSaved(value => !value)}>
+        {saved ? 'Reset saved state' : label}
+      </button>
+      <p role="status" aria-live="polite" className="feedback">
+        {saved ? 'Component saved successfully in this demonstration.' : 'Ready to save.'}
+      </p>
+    </div>
   );
 }
-
 export default AccessibleButton;
