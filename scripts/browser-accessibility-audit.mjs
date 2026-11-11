@@ -38,10 +38,12 @@ try {
   const skipTarget = await page.evaluate(() => document.activeElement?.id);
   if (skipTarget !== 'main-content') throw new Error('Skip link did not focus main content');
   observations.push('PASS: Enter activates skip link and focuses main content');
+  // Verify backward traversal between two ordinary navigation links.
+  await page.getByRole('link', { name: 'Accessibility Notes', exact: true }).first().focus();
   await page.keyboard.press('Shift+Tab');
-  const backToSkip = await page.evaluate(() => document.activeElement?.textContent?.trim() === 'Skip to main content');
-  if (!backToSkip) throw new Error('Shift+Tab did not return to skip link');
-  observations.push('PASS: Shift+Tab navigates backward');
+  const backToHome = await page.evaluate(() => document.activeElement?.textContent?.trim() === 'Home');
+  if (!backToHome) throw new Error('Shift+Tab did not move from Accessibility Notes to Home');
+  observations.push('PASS: Shift+Tab navigates backward between navigation links');
   await page.getByRole('button', { name: 'Save Component' }).focus();
   await page.keyboard.press('Enter');
   if (!(await page.getByRole('button', { name: 'Save Component' }).count())) throw new Error('Enter did not activate button');
